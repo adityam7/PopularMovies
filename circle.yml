@@ -1,0 +1,24 @@
+#
+# Build configuration for Circle CI
+#
+
+general:
+    artifacts:
+        - /home/ubuntu/PopularMovies/app/build/outputs/apk/
+
+machine:
+    environment:
+        ANDROID_HOME: /usr/local/android-sdk-linux
+
+dependencies:
+    override:
+        - echo y | android update sdk --no-ui --all --filter tools,platform-tools,android-21,extra-android-m2repository,extra-google-m2repository,extra-google-google_play_services,extra-android-support
+        - echo y | android update sdk --no-ui --all --filter build-tools-23.0.3
+
+test:
+  override:
+    - ./gradlew tesDebugUnitTest
+    - mkdir -p $CIRCLE_TEST_REPORTS/reports/
+    - cp -avr app/build/reports/tests/debug/ $CIRCLE_TEST_REPORTS/reports/
+    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+    - find . -type f -regex ".*/build/test-results/debug/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
