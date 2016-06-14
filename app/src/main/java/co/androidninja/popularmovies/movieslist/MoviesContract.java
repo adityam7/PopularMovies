@@ -21,6 +21,7 @@ public interface MoviesContract {
         void showMovies(List<Movie> movies);
         void addMovies(List<Movie> movies);
         void showListError(String errorMessage, boolean showRetry);
+        void showListComplete();
         void goToMovie(Movie movie);
         boolean isActive();
     }

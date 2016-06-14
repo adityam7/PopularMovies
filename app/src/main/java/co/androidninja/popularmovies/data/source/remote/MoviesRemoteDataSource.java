@@ -24,6 +24,16 @@ public class MoviesRemoteDataSource implements MoviesDataSource {
     @Override
     public void loadPopularMovies(long page, final LoadMoviesCallback callback) {
         Call<MoviesRemoteResponse> call = mService.getPopularMovies(API_KEY, page);
+        executeCall(call, callback);
+    }
+
+    @Override
+    public void loadTopRatedMovies(long page, final LoadMoviesCallback callback) {
+        Call<MoviesRemoteResponse> call = mService.getTopRatedMovies(API_KEY, page);
+        executeCall(call, callback);
+    }
+
+    private void executeCall(Call<MoviesRemoteResponse> call, final LoadMoviesCallback callback) {
         call.enqueue(new Callback<MoviesRemoteResponse>() {
             @Override
             public void onResponse(Call<MoviesRemoteResponse> call, Response<MoviesRemoteResponse> response) {
@@ -35,42 +45,6 @@ public class MoviesRemoteDataSource implements MoviesDataSource {
                         page = -1;
                     } else {
                         page++;
-                    }
-                    callback.onMoviesLoaded(remoteResponse.getResults(), page);
-                } else {
-                    int statusCode = response.code();
-                    String message = "Oops, something went wrong";
-                    boolean tryAgain = true;
-                    if(statusCode >= 400 && statusCode < 500) {
-                        message = "We are currently facing some server issues right now, please try again later in 15 minutes";
-                        tryAgain = true;
-                    } else if (statusCode >= 500) {
-                        message = "We are currently facing some server issues right now, close the app and try again in 15 minutes";
-                        tryAgain = false;
-                    }
-                    callback.onError(message, tryAgain);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MoviesRemoteResponse> call, Throwable t) {
-                callback.onError(t.getMessage(), true);
-            }
-        });
-    }
-
-    @Override
-    public void loadTopRatedMovies(long page, final LoadMoviesCallback callback) {
-        Call<MoviesRemoteResponse> call = mService.getTopRatedMovies(API_KEY, page);
-        call.enqueue(new Callback<MoviesRemoteResponse>() {
-            @Override
-            public void onResponse(Call<MoviesRemoteResponse> call, Response<MoviesRemoteResponse> response) {
-                if(response.isSuccessful()) {
-                    MoviesRemoteResponse remoteResponse = response.body();
-                    long page = remoteResponse.getPage();
-                    long total_pages = remoteResponse.getTotal_pages();
-                    if(page == total_pages) {
-                        page = -1;
                     }
                     callback.onMoviesLoaded(remoteResponse.getResults(), page);
                 } else {

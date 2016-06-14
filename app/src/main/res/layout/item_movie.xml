@@ -4,4 +4,6 @@
     android:id="@+id/movie_poster"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:scaleType="fitCenter"/>
+    android:scaleType="fitCenter"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"/>

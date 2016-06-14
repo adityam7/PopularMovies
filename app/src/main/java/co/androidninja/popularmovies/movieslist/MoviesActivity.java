@@ -12,6 +12,8 @@ import co.androidninja.popularmovies.util.ActivityUtils;
 
 public class MoviesActivity extends AppCompatActivity {
 
+    private MoviesContract.Presenter mPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +30,14 @@ public class MoviesActivity extends AppCompatActivity {
         }
 
         MoviesDataSource repository = new MoviesRepository(getApplicationContext(), new MoviesRemoteDataSource());
-        MoviesContract.Presenter presenter = new MoviesPresenter(moviesFragment, repository);
-        moviesFragment.setPresenter(presenter);
+        mPresenter = new MoviesPresenter(moviesFragment, repository);
+        moviesFragment.setPresenter(mPresenter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.cleanUp();
+        mPresenter = null;
     }
 }

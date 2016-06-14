@@ -1,6 +1,5 @@
 package co.androidninja.popularmovies.movieslist;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -14,7 +13,7 @@ import co.androidninja.popularmovies.data.Movie;
 /**
  * Created by Aditya Mehta on 14/06/16.
  */
-public class MovieHolder extends RecyclerView.ViewHolder {
+public class MovieHolder extends BaseHolder {
 
     @BindView(R.id.movie_poster)
     protected ImageView ivMoviePoster;
@@ -24,12 +23,19 @@ public class MovieHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-    public void bind(Movie movie) {
+    @Override
+    public void bind(final Movie movie, final MoviesAdapter.MovieListListener listener) {
         Glide.with(ivMoviePoster.getContext())
                 .load(movie.getPoster_path())
                 .placeholder(R.drawable.ic_movies)
                 .error(R.drawable.ic_movies)
                 .crossFade()
                 .into(ivMoviePoster);
+        ivMoviePoster.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.MovieClicked(movie);
+            }
+        });
     }
 }

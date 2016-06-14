@@ -67,16 +67,20 @@ public class MoviesPresenter implements MoviesContract.Presenter {
             }
         };
 
-        if (currentFilter == POPULAR) {
-            mMovieRepository.loadPopularMovies(mNextPage, callback);
-        } else {
-            mMovieRepository.loadTopRatedMovies(mNextPage, callback);
+        if(mNextPage != -1) {
+            if (currentFilter == POPULAR) {
+                mMovieRepository.loadPopularMovies(mNextPage, callback);
+            } else {
+                mMovieRepository.loadTopRatedMovies(mNextPage, callback);
+            }
         }
     }
 
     @Override
     public void setFilter(@Filter int filter) {
         currentFilter = filter;
+        mMovieRepository.refreshMovies();
+        start();
     }
 
     @Override
@@ -86,6 +90,7 @@ public class MoviesPresenter implements MoviesContract.Presenter {
 
     @Override
     public void cleanUp() {
-
+        mView = null;
+        mMovieRepository = null;
     }
 }
