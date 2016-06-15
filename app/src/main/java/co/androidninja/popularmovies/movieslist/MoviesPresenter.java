@@ -1,6 +1,7 @@
 package co.androidninja.popularmovies.movieslist;
 
 import android.support.annotation.NonNull;
+import android.view.View;
 
 import java.util.List;
 
@@ -84,8 +85,8 @@ public class MoviesPresenter implements MoviesContract.Presenter {
     }
 
     @Override
-    public void movieSelected(Movie movie) {
-        mView.goToMovie(movie);
+    public void movieSelected(Movie movie, View view) {
+        mView.goToMovie(movie, view);
     }
 
     @Override

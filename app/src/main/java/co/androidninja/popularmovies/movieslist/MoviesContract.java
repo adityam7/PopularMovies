@@ -22,7 +22,7 @@ public interface MoviesContract {
         void addMovies(List<Movie> movies);
         void showListError(String errorMessage, boolean showRetry);
         void showListComplete();
-        void goToMovie(Movie movie);
+        void goToMovie(Movie movie, android.view.View view);
         boolean isActive();
     }
 
@@ -37,7 +37,7 @@ public interface MoviesContract {
 
         void loadMovies(boolean forceUpdate, boolean loadInitial);
         void setFilter(@Filter int filterType);
-        void movieSelected(Movie movie);
+        void movieSelected(Movie movie, android.view.View view);
         void cleanUp();
     }
 

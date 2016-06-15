@@ -3,6 +3,7 @@ package co.androidninja.popularmovies.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -61,6 +62,11 @@ public class Movie implements Parcelable {
         this.release_date = release_date;
     }
 
+    public String getReleaseDateText() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM dd yyyy");
+        return simpleDateFormat.format(getRelease_date());
+    }
+
     public ArrayList<Integer> getGenre_ids() {
         return genre_ids;
     }
@@ -102,7 +108,7 @@ public class Movie implements Parcelable {
     }
 
     public String getBackdrop_path() {
-        return backdrop_path;
+        return "http://image.tmdb.org/t/p/w500/"+backdrop_path;
     }
 
     public void setBackdrop_path(String backdrop_path) {
