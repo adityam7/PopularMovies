@@ -24,7 +24,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<BaseHolder> {
     private int mShowLoadingMore;
 
     public interface MovieListListener {
-        void MovieClicked(Movie movie);
+        void MovieClicked(Movie movie, View view);
         void LoadMoreMovies();
     }
 

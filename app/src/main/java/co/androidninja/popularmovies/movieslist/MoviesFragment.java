@@ -1,9 +1,11 @@
 package co.androidninja.popularmovies.movieslist;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.GridLayoutManager;
@@ -28,6 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.androidninja.popularmovies.R;
 import co.androidninja.popularmovies.data.Movie;
+import co.androidninja.popularmovies.moviedetail.MovieDetailActivity;
 
 public class MoviesFragment extends Fragment implements MoviesContract.View, MoviesAdapter.MovieListListener {
 
@@ -194,8 +197,11 @@ public class MoviesFragment extends Fragment implements MoviesContract.View, Mov
     }
 
     @Override
-    public void goToMovie(Movie movie) {
-
+    public void goToMovie(Movie movie, View view) {
+        Intent intent = MovieDetailActivity.getStartIntent(getContext(), movie);
+        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat
+                .makeSceneTransitionAnimation(getActivity(), view, getString(R.string.movie_poster));
+        startActivity(intent, optionsCompat.toBundle());
     }
 
     @Override
@@ -209,8 +215,8 @@ public class MoviesFragment extends Fragment implements MoviesContract.View, Mov
     }
 
     @Override
-    public void MovieClicked(Movie movie) {
-        mPresenter.movieSelected(movie);
+    public void MovieClicked(Movie movie, View view) {
+        mPresenter.movieSelected(movie, view);
     }
 
     @Override

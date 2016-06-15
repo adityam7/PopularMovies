@@ -10,4 +10,9 @@
         <item>@string/popular_movies</item>
         <item>@string/top_rated</item>
     </string-array>
+    <string name="title_activity_movie_detail">Movie Details</string>
+    <string name="release_date">RELEASE DATE</string>
+    <string name="movie_poster">movie_poster</string>
+    <string name="synopsis">SYNOPSIS</string>
+    <string name="user_rating">User Rating</string>
 </resources>
