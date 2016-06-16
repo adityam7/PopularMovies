@@ -52,6 +52,9 @@ public class MoviesPresenter implements MoviesContract.Presenter {
                     } else {
                         mView.addMovies(movies);
                     }
+                    if(mNextPage == -1) {
+                        mView.showListComplete();
+                    }
                 }
             }
 

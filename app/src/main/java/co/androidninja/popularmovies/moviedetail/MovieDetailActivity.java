@@ -9,13 +9,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.androidninja.popularmovies.R;
 import co.androidninja.popularmovies.data.Movie;
 import co.androidninja.popularmovies.util.ActivityUtils;
+import co.androidninja.popularmovies.util.ImageHelper;
 
 
 /**
@@ -58,7 +57,7 @@ public class MovieDetailActivity extends AppCompatActivity {
             }
         }
 
-        Glide.with(this).load(movie.getBackdrop_path()).into(ivBackDrop);
+        ImageHelper.loadBackDropImage(this, ivBackDrop, movie.getBackdrop_path());
 
         MovieDetailFragment movieDetailFragment = (MovieDetailFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.contentFrame);

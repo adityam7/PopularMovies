@@ -1,9 +1,8 @@
 package co.androidninja.popularmovies.data.source;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
+
+import co.androidninja.popularmovies.util.NetworkUtil;
 
 /**
  * This class will make more sense when I'm using a db to store these results locally
@@ -11,29 +10,31 @@ import android.support.annotation.NonNull;
  */
 public class MoviesRepository implements MoviesDataSource {
 
-    ConnectivityManager mConnectivityManager;
+    static final String NETWORK_NOT_CONNECTED = "Network not connected, please check your connection and try again";
+
+    private NetworkUtil mNetworkUtil;
     MoviesDataSource mRemoteSource;
 
-    public MoviesRepository(@NonNull Context context, @NonNull MoviesDataSource remoteSource) {
+    public MoviesRepository(@NonNull NetworkUtil networkUtil, @NonNull MoviesDataSource remoteSource) {
         mRemoteSource = remoteSource;
-        mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        mNetworkUtil = networkUtil;
     }
 
     @Override
     public void loadPopularMovies(long page, LoadMoviesCallback callback) {
-        if(isNetworkAvailable()) {
+        if(mNetworkUtil.isNetworkAvailable()) {
             mRemoteSource.loadPopularMovies(page, callback);
         } else {
-            callback.onError("Network not connected, please check your connection and try again", true);
+            callback.onError(NETWORK_NOT_CONNECTED, true);
         }
     }
 
     @Override
     public void loadTopRatedMovies(long page, LoadMoviesCallback callback) {
-        if(isNetworkAvailable()) {
+        if(mNetworkUtil.isNetworkAvailable()) {
             mRemoteSource.loadTopRatedMovies(page, callback);
         } else {
-            callback.onError("Network not connected, please check your connection and try again", true);
+            callback.onError(NETWORK_NOT_CONNECTED, true);
         }
     }
 
@@ -43,13 +44,5 @@ public class MoviesRepository implements MoviesDataSource {
     @Override
     public void refreshMovies() {
 
-    }
-
-    private boolean isNetworkAvailable() {
-        NetworkInfo nwInfo = mConnectivityManager.getActiveNetworkInfo();
-        if (nwInfo != null && nwInfo.isConnectedOrConnecting()) {
-            return true;
-        }
-        return false;
     }
 }

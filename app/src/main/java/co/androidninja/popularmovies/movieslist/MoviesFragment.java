@@ -122,12 +122,12 @@ public class MoviesFragment extends Fragment implements MoviesContract.View, Mov
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mLoading = true;
                 if(position == 0) {
                     mPresenter.setFilter(MoviesContract.Presenter.POPULAR);
                 } else {
                     mPresenter.setFilter(MoviesContract.Presenter.TOP_RATED);
                 }
-                mLoading = true;
             }
 
             @Override
@@ -223,7 +223,7 @@ public class MoviesFragment extends Fragment implements MoviesContract.View, Mov
     public void LoadMoreMovies() {
         if(!mLoading) {
             mPresenter.loadMovies(false, false);
+            mLoading = true;
         }
-        mLoading = true;
     }
 }

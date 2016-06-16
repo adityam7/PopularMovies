@@ -17,6 +17,6 @@ public final class DataBinder {
     @BindingAdapter("imageUrl")
     public static void setImageUrl(ImageView imageView, String url) {
         Context context = imageView.getContext();
-        ImageHelper.loadImage(context, imageView, R.drawable.ic_movies, R.drawable.ic_movies, url);
+        ImageHelper.loadPosterImage(context, imageView, R.drawable.ic_movies, R.drawable.ic_movies, url);
     }
 }
