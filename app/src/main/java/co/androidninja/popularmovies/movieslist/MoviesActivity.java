@@ -4,10 +4,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import co.androidninja.popularmovies.Injection;
 import co.androidninja.popularmovies.R;
 import co.androidninja.popularmovies.data.source.MoviesDataSource;
-import co.androidninja.popularmovies.data.source.MoviesRepository;
-import co.androidninja.popularmovies.data.source.remote.MoviesRemoteDataSource;
 import co.androidninja.popularmovies.util.ActivityUtils;
 
 public class MoviesActivity extends AppCompatActivity {
@@ -29,7 +28,7 @@ public class MoviesActivity extends AppCompatActivity {
                     R.id.contentFrame);
         }
 
-        MoviesDataSource repository = new MoviesRepository(getApplicationContext(), new MoviesRemoteDataSource());
+        MoviesDataSource repository = Injection.injectMoviesDataSource(getApplicationContext());
         mPresenter = new MoviesPresenter(moviesFragment, repository);
         moviesFragment.setPresenter(mPresenter);
     }

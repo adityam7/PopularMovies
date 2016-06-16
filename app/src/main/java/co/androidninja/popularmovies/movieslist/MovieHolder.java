@@ -24,7 +24,7 @@ public class MovieHolder extends BaseHolder {
 
     @Override
     public void bind(final Movie movie, final MoviesAdapter.MovieListListener listener) {
-        ImageHelper.loadImage(ivMoviePoster.getContext(),
+        ImageHelper.loadPosterImage(ivMoviePoster.getContext(),
                 ivMoviePoster, R.drawable.ic_movies,
                 R.drawable.ic_movies, movie.getPoster_path());
         ivMoviePoster.setOnClickListener(new View.OnClickListener() {
