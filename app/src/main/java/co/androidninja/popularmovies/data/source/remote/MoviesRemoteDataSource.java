@@ -14,7 +14,7 @@ import retrofit2.Retrofit;
 public class MoviesRemoteDataSource implements MoviesDataSource {
 
     private MovieDBService mService;
-    private static String API_KEY = "{Your API Key goes here}";
+    private static String API_KEY = "9af5d91c76a48f655f6ac15085707ef8"; //"{Your API Key goes here}";
 
     public MoviesRemoteDataSource() {
         Retrofit retrofit = RetrofitSingleton.getInstance();
