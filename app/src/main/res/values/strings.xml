@@ -1,4 +1,17 @@
 <resources>
-    <string name="app_name">Popular Movies</string>
     <string name="action_settings">Settings</string>
+    <string name="retry">Retry</string>
+    <string name="loading">Loading...</string>
+    <string name="filter">Filter</string>
+    <string name="popular_movies">Popular Movies</string>
+    <string name="top_rated">Top Rated</string>
+    <string-array name="drop_down_items">
+        <item>@string/popular_movies</item>
+        <item>@string/top_rated</item>
+    </string-array>
+    <string name="title_activity_movie_detail">Movie Details</string>
+    <string name="release_date">RELEASE DATE</string>
+    <string name="movie_poster">movie_poster</string>
+    <string name="synopsis">SYNOPSIS</string>
+    <string name="user_rating">User Rating</string>
 </resources>
