@@ -7,7 +7,6 @@ import java.util.List;
 
 import co.androidninja.popularmovies.data.Movie;
 import co.androidninja.popularmovies.data.source.MoviesDataSource;
-import co.androidninja.popularmovies.util.EspressoIdlingResource;
 
 /**
  * Created by Aditya Mehta on 11/06/16.
@@ -42,7 +41,6 @@ public class MoviesPresenter implements MoviesContract.Presenter {
             mMovieRepository.refreshMovies();
         }
 
-        EspressoIdlingResource.increment();
         MoviesDataSource.LoadMoviesCallback callback = new MoviesDataSource.LoadMoviesCallback() {
             @Override
             public void onMoviesLoaded(List<Movie> movies, long nextPage) {
@@ -58,7 +56,6 @@ public class MoviesPresenter implements MoviesContract.Presenter {
                         mView.showListComplete();
                     }
                 }
-                EspressoIdlingResource.decrement();
             }
 
             @Override
@@ -71,7 +68,6 @@ public class MoviesPresenter implements MoviesContract.Presenter {
                         mView.showListError(message, showRetry);
                     }
                 }
-                EspressoIdlingResource.decrement();
             }
         };
 
