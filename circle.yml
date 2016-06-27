@@ -17,14 +17,15 @@ dependencies:
 
 test:
   override:
-    - ./gradlew tesMockDebugUnitTest
-    - mkdir -p $CIRCLE_TEST_REPORTS/reports/unit-tests
-    - cp -avr app/build/reports/tests/mockDebug/ $CIRCLE_TEST_REPORTS/reports/unit-tests
-    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
-    - find . -type f -regex ".*/build/test-results/mockDebug/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
 
-test:
-  override:
+      # perform unit tests
+      - ./gradlew tesMockDebugUnitTest
+      # Save test reports
+      - mkdir -p $CIRCLE_TEST_REPORTS/reports/unit-tests
+      - cp -avr app/build/reports/tests/mockDebug/ $CIRCLE_TEST_REPORTS/reports/unit-tests
+      - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+      - find . -type f -regex ".*/build/test-results/mockDebug/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
+
       # start the emulator
       - emulator -avd circleci-android22 -no-audio -no-window:
           background: true
@@ -37,5 +38,5 @@ test:
       # run tests against the emulator.
       - ./gradlew connectedMockDebugAndroidTest -PdisablePreDex
       # Copying the test reports
-      - mkdir -p $CIRCLE_TEST_REPORTS/reports/unit-tests
-      - cp -avr app/build/reports/androidTests/connected/flavors/MOCK/ $CIRCLE_TEST_REPORTS/reports/unit-tests
+      - mkdir -p $CIRCLE_TEST_REPORTS/reports/functional-tests
+      - cp -avr app/build/reports/androidTests/connected/flavors/MOCK/ $CIRCLE_TEST_REPORTS/reports/functional-tests
