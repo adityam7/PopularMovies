@@ -1,7 +1,6 @@
 package co.androidninja.popularmovies.movieslist;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -85,12 +84,7 @@ public class MoviesFragment extends Fragment implements MoviesContract.View, Mov
         View view = inflater.inflate(R.layout.fragment_movies, container, false);
         ButterKnife.bind(this, view);
         mNumberOfMovies = 0;
-        int orientation = getActivity().getResources().getConfiguration().orientation;
-        if(orientation == Configuration.ORIENTATION_PORTRAIT) {
-            mNumberOfColoumns = 2;
-        } else {
-            mNumberOfColoumns = 3;
-        }
+        mNumberOfColoumns = getResources().getInteger(R.integer.columns);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), mNumberOfColoumns);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
