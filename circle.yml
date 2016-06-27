@@ -16,7 +16,7 @@ dependencies:
         - echo y | android update sdk --no-ui --all --filter build-tools-23.0.3
 
 test:
-  pre:
+  override:
   # start the emulator
   - emulator -avd circleci-android22 -no-audio -no-window:
     background: true
@@ -26,7 +26,5 @@ test:
   # unlock the emulator screen
   - sleep 30
   - fb-adb shell input keyevent 82
-
-  override:
-    # run tests against the emulator.
-    - ./gradlew connectedMockDebugAndroidTest -PdisablePreDex
+  # run tests against the emulator.
+  - ./gradlew connectedMockDebugAndroidTest -PdisablePreDex
