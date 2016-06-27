@@ -1,7 +1,6 @@
 package co.androidninja.popularmovies.movieslist;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +50,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<BaseHolder> {
     public BaseHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case MOVIE:
-                Log.d(TAG, "onCreateViewHolder: MOVIE");
                 return getMovieHolder(parent);
             case LOADING:
                 return getLoadingHolder(parent);

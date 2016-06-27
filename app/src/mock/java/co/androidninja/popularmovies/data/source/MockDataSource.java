@@ -1,18 +1,14 @@
 package co.androidninja.popularmovies.data.source;
 
-import android.os.Handler;
-
 import com.google.gson.Gson;
 
 import co.androidninja.popularmovies.data.source.remote.MoviesRemoteResponse;
-import co.androidninja.popularmovies.util.EspressoIdlingResource;
 
 /**
  * Created by Aditya Mehta on 16/06/16.
  */
 public class MockDataSource implements MoviesDataSource {
 
-    private static final int SERVICE_LATENCY_IN_MILLIS = 1000;
     MoviesRemoteResponse response1;
     MoviesRemoteResponse response2;
 
@@ -24,36 +20,20 @@ public class MockDataSource implements MoviesDataSource {
 
     @Override
     public void loadPopularMovies(final long page, final LoadMoviesCallback callback) {
-
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (page == 1) {
-                    callback.onMoviesLoaded(response1.getResults(), 2);
-                } else {
-                    callback.onMoviesLoaded(response2.getResults(), -1);
-                }
-
-            }
-        }, SERVICE_LATENCY_IN_MILLIS);
+        if (page == 1) {
+            callback.onMoviesLoaded(response1.getResults(), 2);
+        } else {
+            callback.onMoviesLoaded(response2.getResults(), -1);
+        }
     }
 
     @Override
     public void loadTopRatedMovies(final long page, final LoadMoviesCallback callback) {
-
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (page == 1) {
-                    callback.onMoviesLoaded(response2.getResults(), 2);
-                } else {
-                    callback.onMoviesLoaded(response1.getResults(), -1);
-                }
-
-            }
-        }, SERVICE_LATENCY_IN_MILLIS);
+        if (page == 1) {
+            callback.onMoviesLoaded(response2.getResults(), 2);
+        } else {
+            callback.onMoviesLoaded(response1.getResults(), -1);
+        }
     }
 
     @Override
