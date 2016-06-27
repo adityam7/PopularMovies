@@ -39,24 +39,4 @@ public class MoviesListTest {
         textView.check(matches(withText("Jurassic World")));
 
     }
-
-    @Test
-    public void topRatedSelectedTest() {
-        ViewInteraction spinner = onView(
-                allOf(withId(R.id.drop_down), isDisplayed()));
-        spinner.perform(click());
-
-        ViewInteraction appCompatTextView = onView(
-                allOf(withText(R.string.top_rated), isDisplayed()));
-        appCompatTextView.perform(click());
-
-        ViewInteraction recyclerView = onView(
-                allOf(withId(R.id.recyclerview), isDisplayed()));
-        recyclerView.perform(actionOnItemAtPosition(1, click()));
-
-        ViewInteraction textView = onView(
-                allOf(withId(R.id.movie_title), withText("The Imitation Game"), isDisplayed()));
-        textView.check(matches(withText("The Imitation Game")));
-
-    }
 }
