@@ -12,19 +12,20 @@ machine:
 
 dependencies:
     override:
-        - echo y | android update sdk --no-ui --all --filter tools,platform-tools,android-21,extra-android-m2repository,extra-google-m2repository,extra-google-google_play_services,extra-android-support
+        - echo y | android update sdk --no-ui --all --filter tools,platform-tools,android-23,extra-android-m2repository,extra-google-m2repository,extra-google-google_play_services,extra-android-support
         - echo y | android update sdk --no-ui --all --filter build-tools-23.0.3
 
 test:
+
   override:
-  # start the emulator
-  - emulator -avd circleci-android22 -no-audio -no-window:
-    background: true
-    parallel: true
-  # wait for it to have booted
-  - circle-android wait-for-boot
-  # unlock the emulator screen
-  - sleep 30
-  - fb-adb shell input keyevent 82
-  # run tests against the emulator.
-  - ./gradlew connectedMockDebugAndroidTest -PdisablePreDex
+      # start the emulator
+      - emulator -avd circleci-android22 -no-audio -no-window:
+          background: true
+          parallel: true
+      # wait for it to have booted
+      - circle-android wait-for-boot
+      # unlock the emulator screen
+      - sleep 30
+      - adb shell input keyevent 82
+      # run tests against the emulator.
+      - ./gradlew connectedMockDebugAndroidTest -PdisablePreDex
