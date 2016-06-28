@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -180,6 +181,7 @@ public class MoviesFragment extends Fragment implements MoviesContract.View, Mov
                 .setAction(R.string.retry, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Log.d(TAG, "onClick: called");
                         mPresenter.loadMovies(false, false);
                     }
                 }).show();
@@ -205,7 +207,9 @@ public class MoviesFragment extends Fragment implements MoviesContract.View, Mov
 
     @Override
     public void setPresenter(MoviesContract.Presenter presenter) {
-        mPresenter = presenter;
+        if(mPresenter == null) {
+            mPresenter = presenter;
+        }
     }
 
     @Override
@@ -216,8 +220,10 @@ public class MoviesFragment extends Fragment implements MoviesContract.View, Mov
     @Override
     public void LoadMoreMovies() {
         if(!mLoading) {
-            mPresenter.loadMovies(false, false);
+            Log.d(TAG, "LoadMoreMovies: called");
             mLoading = true;
+            mPresenter.loadMovies(false, false);
+
         }
     }
 }

@@ -1,6 +1,7 @@
 package co.androidninja.popularmovies.movieslist;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,8 +72,10 @@ public class MoviesAdapter extends RecyclerView.Adapter<BaseHolder> {
     @Override
     public void onBindViewHolder(BaseHolder holder, int position) {
         if(position < mMovies.size()) {
+            Log.d(TAG, "onBindViewHolder: Movie holder");
             holder.bind(mMovies.get(position), mListListener);
         } else {
+            Log.d(TAG, "onBindViewHolder: loading holder");
             holder.bind(null, mListListener);
         }
     }

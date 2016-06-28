@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <item name="main_layout" type="layout">@layout/activity_movies_duo_panes_slim</item>
     <integer name="columns">2</integer>
 </resources>

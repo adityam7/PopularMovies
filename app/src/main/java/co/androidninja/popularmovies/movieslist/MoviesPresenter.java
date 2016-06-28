@@ -1,6 +1,7 @@
 package co.androidninja.popularmovies.movieslist;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 
 import java.util.List;
@@ -12,6 +13,8 @@ import co.androidninja.popularmovies.data.source.MoviesDataSource;
  * Created by Aditya Mehta on 11/06/16.
  */
 public class MoviesPresenter implements MoviesContract.Presenter {
+
+    private static final String TAG = MoviesPresenter.class.getSimpleName();
 
     @Filter
     int currentFilter = POPULAR;
@@ -28,11 +31,13 @@ public class MoviesPresenter implements MoviesContract.Presenter {
 
     @Override
     public void start() {
+        Log.d(TAG, "start: called");
         loadMovies(false, true);
     }
 
     @Override
     public void loadMovies(boolean forceUpdate, final boolean loadInitial) {
+        Log.d(TAG, "loadMovies: called forceUpdate:"+forceUpdate+" loadInitial:"+loadInitial);
         if (loadInitial) {
             mView.showLoading(true);
             mNextPage = 1;
@@ -82,6 +87,7 @@ public class MoviesPresenter implements MoviesContract.Presenter {
 
     @Override
     public void setFilter(@Filter int filter) {
+        Log.d(TAG, "setFilter: called");
         currentFilter = filter;
         mMovieRepository.refreshMovies();
         start();
